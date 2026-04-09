@@ -33,11 +33,13 @@ Build an e-commerce platform with login/auth and dashboard for managing listed i
 - Admin can update order status, toggle user roles, delete users
 - Pastel design system with Nunito/DM Sans fonts
 - 6 seeded sample products, admin user seeded on startup
+- **Product Detail Page** at /product/:id with full description, quantity selector, add-to-cart
+- **Image Upload** via Emergent object storage - drag-and-drop + URL fallback in product form
 
 ## Backlog
 - P0: None (all core features implemented)
-- P1: Product detail page, image upload via object storage, order email notifications
-- P2: Wishlist, product reviews/ratings, seller analytics, inventory alerts
+- P1: Order email notifications, seller dashboard analytics
+- P2: Wishlist, product reviews/ratings, inventory alerts
 - P3: Multiple payment methods, discount codes, referral system
 
 ## Next Tasks
