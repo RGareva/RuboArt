@@ -66,7 +66,7 @@ export default function CartDrawer() {
                 className="flex gap-3 bg-white p-3 rounded-2xl border border-[#F1E9E7]"
               >
                 <img
-                  src={item.image_url}
+                  src={item.image_url?.startsWith("/api/files/") ? `${process.env.REACT_APP_BACKEND_URL}${item.image_url}` : item.image_url}
                   alt={item.name}
                   className="w-20 h-20 rounded-xl object-cover bg-[#FFFAF6] flex-shrink-0"
                 />

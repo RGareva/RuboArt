@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { Plus, Pencil, Trash2, Package } from "lucide-react";
+import { Plus, Pencil, Trash2, Package, Upload, Image, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -30,6 +30,9 @@ export default function DashboardPage() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
+  const fileInputRef = useRef(null);
   const [form, setForm] = useState({
     name: "", description: "", price: "", category: "Other", image_url: "", stock: "1",
   });
@@ -52,11 +55,15 @@ export default function DashboardPage() {
   const openAddDialog = () => {
     setEditingProduct(null);
     setForm({ name: "", description: "", price: "", category: "Other", image_url: "", stock: "1" });
+    setImagePreview(null);
     setDialogOpen(true);
   };
 
   const openEditDialog = (product) => {
     setEditingProduct(product);
+    const resolvedImg = product.image_url?.startsWith("/api/files/")
+      ? `${process.env.REACT_APP_BACKEND_URL}${product.image_url}`
+      : product.image_url;
     setForm({
       name: product.name,
       description: product.description,
@@ -65,7 +72,49 @@ export default function DashboardPage() {
       image_url: product.image_url,
       stock: String(product.stock),
     });
+    setImagePreview(resolvedImg || null);
     setDialogOpen(true);
+  };
+
+  const handleImageUpload = async (file) => {
+    if (!file) return;
+    const allowed = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    if (!allowed.includes(file.type)) {
+      toast.error("Only JPEG, PNG, GIF, WebP images are allowed");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image must be under 5MB");
+      return;
+    }
+    setUploadingImage(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const { data } = await axios.post(`${API}/upload-image`, formData, {
+        withCredentials: true,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setForm((f) => ({ ...f, image_url: data.url }));
+      setImagePreview(URL.createObjectURL(file));
+      toast.success("Image uploaded!");
+    } catch (err) {
+      toast.error(err.response?.data?.detail || "Failed to upload image");
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer?.files?.[0];
+    if (file) handleImageUpload(file);
+  };
+
+  const clearImage = () => {
+    setForm((f) => ({ ...f, image_url: "" }));
+    setImagePreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const handleSubmit = async (e) => {
@@ -151,7 +200,7 @@ export default function DashboardPage() {
                 className="bg-white p-4 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.03)] border border-[#F1E9E7] flex gap-4"
               >
                 <img
-                  src={product.image_url}
+                  src={product.image_url?.startsWith("/api/files/") ? `${process.env.REACT_APP_BACKEND_URL}${product.image_url}` : product.image_url}
                   alt={product.name}
                   className="w-24 h-24 rounded-xl object-cover bg-[#FFFAF6] flex-shrink-0"
                 />
@@ -252,14 +301,65 @@ export default function DashboardPage() {
                 ))}
               </SelectContent>
             </Select>
-            <input
-              data-testid="product-image-input"
-              type="url"
-              placeholder="Image URL (optional)"
-              value={form.image_url}
-              onChange={(e) => setForm({ ...form, image_url: e.target.value })}
-              className="w-full px-4 py-3 rounded-2xl bg-white border-2 border-transparent focus:border-[#FFB3A7] outline-none transition-all text-[#2B2D42] placeholder:text-[#6D6875]/50"
-            />
+            {/* Image Upload Area */}
+            <div className="space-y-2">
+              <p className="text-xs font-bold text-[#6D6875] uppercase tracking-wider px-1">Product Image</p>
+              {imagePreview ? (
+                <div className="relative">
+                  <img src={imagePreview} alt="Preview" className="w-full h-40 object-cover rounded-2xl border-2 border-[#B9FBC0]" />
+                  <button
+                    type="button"
+                    onClick={clearImage}
+                    data-testid="clear-image-button"
+                    className="absolute top-2 right-2 p-1.5 rounded-full bg-white/90 hover:bg-white shadow-sm transition-all"
+                  >
+                    <X className="w-4 h-4 text-[#FF9999]" />
+                  </button>
+                </div>
+              ) : (
+                <div
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={handleDrop}
+                  onClick={() => fileInputRef.current?.click()}
+                  data-testid="image-upload-area"
+                  className="w-full h-36 rounded-2xl border-2 border-dashed border-[#F1E9E7] hover:border-[#FFB3A7] bg-white flex flex-col items-center justify-center gap-2 cursor-pointer transition-all"
+                >
+                  {uploadingImage ? (
+                    <div className="w-6 h-6 rounded-full border-2 border-[#FFB3A7] border-t-transparent animate-spin" />
+                  ) : (
+                    <>
+                      <Upload className="w-6 h-6 text-[#C8B6FF]" />
+                      <p className="text-sm text-[#6D6875]">Click or drop an image here</p>
+                      <p className="text-xs text-[#6D6875]/60">JPEG, PNG, GIF, WebP (max 5MB)</p>
+                    </>
+                  )}
+                </div>
+              )}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/gif,image/webp"
+                className="hidden"
+                data-testid="image-file-input"
+                onChange={(e) => handleImageUpload(e.target.files?.[0])}
+              />
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-px bg-[#F1E9E7]" />
+                <span className="text-xs text-[#6D6875]/60">or paste URL</span>
+                <div className="flex-1 h-px bg-[#F1E9E7]" />
+              </div>
+              <input
+                data-testid="product-image-input"
+                type="url"
+                placeholder="Image URL (optional)"
+                value={form.image_url?.startsWith("/api/") ? "" : form.image_url}
+                onChange={(e) => {
+                  setForm({ ...form, image_url: e.target.value });
+                  setImagePreview(e.target.value || null);
+                }}
+                className="w-full px-4 py-2.5 rounded-2xl bg-white border-2 border-transparent focus:border-[#FFB3A7] outline-none transition-all text-[#2B2D42] placeholder:text-[#6D6875]/50 text-sm"
+              />
+            </div>
             <button
               data-testid="product-submit-button"
               type="submit"

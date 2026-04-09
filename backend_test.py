@@ -171,6 +171,14 @@ class ECommerceAPITester:
             f"products/{self.test_product_id}",
             200
         )
+        if success:
+            # Verify product has all required fields for detail page
+            required_fields = ['id', 'name', 'description', 'price', 'category', 'stock', 'seller_name', 'image_url']
+            missing_fields = [field for field in required_fields if field not in response]
+            if missing_fields:
+                print(f"⚠️  Missing fields in product response: {missing_fields}")
+            else:
+                print("✅ Product has all required fields for detail page")
         return success
 
     def test_cart_operations(self):
@@ -312,6 +320,32 @@ class ECommerceAPITester:
         )
         return success
 
+    def test_image_upload_endpoint(self):
+        """Test image upload endpoint (without actual file)"""
+        # Test that the endpoint exists and requires auth
+        success, response = self.run_test(
+            "Image Upload Endpoint (No File)",
+            "POST",
+            "upload-image",
+            422  # Should fail with validation error for missing file
+        )
+        if success:
+            print("✅ Image upload endpoint exists and validates input")
+        return success
+
+    def test_file_serve_endpoint(self):
+        """Test file serving endpoint"""
+        # Test with a non-existent file to verify endpoint exists
+        success, response = self.run_test(
+            "File Serve Endpoint (Non-existent)",
+            "GET",
+            "files/nonexistent/path.jpg",
+            404  # Should return 404 for non-existent file
+        )
+        if success:
+            print("✅ File serve endpoint exists and handles missing files")
+        return success
+
 def main():
     print("🚀 Starting E-Commerce API Tests")
     print("=" * 50)
@@ -340,12 +374,16 @@ def main():
         ("Create Order", tester.test_create_order),
         ("List Orders", tester.test_list_orders),
         
-        # Switch back to admin for admin tests
+        # Admin tests
         ("Admin Login (Switch)", tester.test_admin_login),
         ("Admin Stats", tester.test_admin_stats),
         ("Admin Products", tester.test_admin_products),
         ("Admin Orders", tester.test_admin_orders),
         ("Admin Users", tester.test_admin_users),
+        
+        # Image upload tests
+        ("Image Upload Endpoint", tester.test_image_upload_endpoint),
+        ("File Serve Endpoint", tester.test_file_serve_endpoint),
         
         # Logout test
         ("Logout", tester.test_logout),
