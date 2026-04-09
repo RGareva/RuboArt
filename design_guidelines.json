@@ -1,0 +1,146 @@
+{
+  "theme": "LIGHT",
+  "archetype": "3 (Pastel & Soft)",
+  "vibe": "Cute, modern, playful, colorful, soft and bouncy.",
+  "colors": {
+    "background": {
+      "base": "#FFFAF6",
+      "surface": "#FFFFFF",
+      "surface_muted": "#FFF0ED"
+    },
+    "brand": {
+      "primary": "#FFB3A7",
+      "primary_hover": "#FFA294",
+      "secondary": "#C8B6FF",
+      "secondary_hover": "#B8A3FF"
+    },
+    "accents": {
+      "mint": "#B9FBC0",
+      "blue": "#A0C4FF",
+      "yellow": "#FDE68A"
+    },
+    "text": {
+      "primary": "#2B2D42",
+      "secondary": "#6D6875",
+      "on_primary": "#2B2D42",
+      "on_secondary": "#2B2D42"
+    },
+    "border": {
+      "subtle": "#F1E9E7",
+      "focus": "#FFB3A7"
+    },
+    "status": {
+      "success": "#B9FBC0",
+      "warning": "#FDE68A",
+      "error": "#FF9999",
+      "info": "#A0C4FF"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "heading": "Nunito, sans-serif",
+      "body": "DM Sans, sans-serif"
+    },
+    "scale": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter",
+      "h2": "text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight",
+      "h3": "text-2xl sm:text-3xl font-bold tracking-tight",
+      "h4": "text-xl font-bold",
+      "body": "text-base font-medium leading-relaxed",
+      "small": "text-sm font-medium",
+      "label": "text-xs font-bold uppercase tracking-[0.1em]"
+    }
+  },
+  "spacing_and_layout": {
+    "container_padding": "p-6 md:p-12",
+    "section_gap": "gap-12 md:gap-24",
+    "item_gap": "gap-4 md:gap-6",
+    "border_radius": {
+      "button": "rounded-full",
+      "card": "rounded-[2rem]",
+      "input": "rounded-2xl",
+      "badge": "rounded-full"
+    },
+    "dashboard_grid": "grid grid-cols-1 md:grid-cols-4 gap-6",
+    "marketing_bento": "grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-8"
+  },
+  "surfaces_and_shadows": {
+    "card": "bg-white rounded-[2rem] shadow-[0_10px_40px_rgba(255,179,167,0.15)] border border-[#F1E9E7]",
+    "card_hover": "hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(255,179,167,0.25)] transition-all duration-300",
+    "glass": "bg-white/70 backdrop-blur-xl border border-white/40 shadow-sm",
+    "input": "bg-[#FFFAF6] border-2 border-transparent focus:bg-white focus:border-[#FFB3A7] focus:ring-0 transition-all",
+    "button_primary": "bg-[#FFB3A7] text-[#2B2D42] rounded-full shadow-[0_4px_14px_rgba(255,179,167,0.4)] hover:shadow-[0_6px_20px_rgba(255,179,167,0.6)] hover:-translate-y-1 transition-all duration-300 active:scale-95 font-bold px-8 py-3",
+    "button_secondary": "bg-[#C8B6FF] text-[#2B2D42] rounded-full shadow-[0_4px_14px_rgba(200,182,255,0.4)] hover:shadow-[0_6px_20px_rgba(200,182,255,0.6)] hover:-translate-y-1 transition-all duration-300 active:scale-95 font-bold px-8 py-3"
+  },
+  "motion": {
+    "page_load": "staggered fade-up with spring physics (stiffness: 100, damping: 15)",
+    "hover_state": "soft lift (-translate-y-1 or -translate-y-2) with increased shadow intensity",
+    "click_state": "active:scale-95 for buttons and interactive cards"
+  },
+  "components": {
+    "header": {
+      "style": "sticky top-4 z-50 mx-4 md:mx-12 px-6 py-3 bg-white/80 backdrop-blur-xl rounded-full shadow-sm border border-[#F1E9E7] flex justify-between items-center"
+    },
+    "product_card": {
+      "style": "bg-white p-4 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col gap-4",
+      "image_container": "w-full aspect-square rounded-[1.5rem] overflow-hidden bg-[#FFFAF6]",
+      "badge": "absolute top-4 left-4 bg-[#B9FBC0] text-[#2B2D42] text-xs font-bold px-3 py-1 rounded-full"
+    },
+    "dashboard_widget": {
+      "style": "bg-white p-6 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.03)] border border-[#F1E9E7] flex flex-col h-full"
+    },
+    "cart_drawer": {
+      "style": "bg-[#FFFAF6] rounded-l-[2rem] border-l border-[#F1E9E7] shadow-[-20px_0_40px_rgba(0,0,0,0.05)]"
+    }
+  },
+  "media": {
+    "hero_background": {
+      "url": "https://images.unsplash.com/photo-1774994134663-a21f73851f65?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHBhc3RlbCUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzc1NzI4MTQwfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Abstract pastel-colored curved lines pattern"
+    },
+    "products": [
+      {
+        "url": "https://images.unsplash.com/photo-1771586814072-b4dd62ccc3e5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHw0fHxwYXN0ZWwlMjBjZXJhbWljJTIwbXVnfGVufDB8fHx8MTc3NTcyODEzMXww&ixlib=rb-4.1.0&q=85",
+        "name": "Pastel Heart Dishes"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1766084693399-3bb3569da848?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHwzfHxwYXN0ZWwlMjBjZXJhbWljJTIwbXVnfGVufDB8fHx8MTc3NTcyODEzMXww&ixlib=rb-4.1.0&q=85",
+        "name": "Pastel Vases Set"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1762318897771-f68b31c0d11f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzF8MHwxfHNlYXJjaHwzfHxwYXN0ZWwlMjBkZXNrJTIwYWNjZXNzb3JpZXN8ZW58MHx8fHwxNzc1NzI4MTMxfDA&ixlib=rb-4.1.0&q=85",
+        "name": "Lilac Notebook & Pen"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1770389356138-99567dd408f6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzN8MHwxfHNlYXJjaHwzfHxjdXRlJTIwcGFzdGVsJTIwcGx1c2glMjB0b3l8ZW58MHx8fHwxNzc1NzI4MTMxfDA&ixlib=rb-4.1.0&q=85",
+        "name": "Cute Plush Duo"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1762318898062-ee8d22f6966c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzF8MHwxfHNlYXJjaHwyfHxwYXN0ZWwlMjBkZXNrJTIwYWNjZXNzb3JpZXN8ZW58MHx8fHwxNzc1NzI4MTMxfDA&ixlib=rb-4.1.0&q=85",
+        "name": "Colorful Envelopes"
+      },
+      {
+        "url": "https://images.pexels.com/photos/6193079/pexels-photo-6193079.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "name": "Pastel Stationery Kit"
+      }
+    ],
+    "avatars": [
+      {
+        "url": "https://images.unsplash.com/photo-1599137936867-394dff2501a7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHwxfHxwYXN0ZWwlMjBmYXNoaW9uJTIwYWNjZXNzb3JpZXN8ZW58MHx8fHwxNzc1NzI4MTQwfDA&ixlib=rb-4.1.0&q=85",
+        "name": "User Profile Placeholder"
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Install and configure 'lucide-react' for icons. Use rounded, friendly icons.",
+    "Install Google Fonts 'Nunito' for headings and 'DM Sans' for body. Configure them in Tailwind.",
+    "For the UI, strictly avoid sharp corners (`rounded-sm`, `rounded-md`). Everything should be pill-shaped or have a very large border-radius (`rounded-[2rem]`, `rounded-full`).",
+    "Do not use dark mode. Stick to the light, pastel color palette provided. Ensure the background color is off-white (#FFFAF6), not pure white.",
+    "For shadows, do not use default gray shadows. Use colored shadows (e.g., rgba(255,179,167,0.15)) to maintain the soft aesthetic.",
+    "Implement Framer Motion for bouncy entrance animations (scale and fade-in).",
+    "For all interactive elements, ensure high contrast text (#2B2D42) over the pastel backgrounds.",
+    "Dashboard should look like a consumer app, not an enterprise tool. Keep spacing generous and use the rounded-card style.",
+    "The shopping cart should slide in from the right using a drawer panel with a rounded left edge.",
+    "Add 'data-testid' attributes to all interactive elements as per the critical rules."
+  ]
+}
